@@ -1,0 +1,11 @@
+#!/bin/bash
+
+WORKSPACE=$(cd `dirname $0` && cd .. && pwd)
+
+
+$WORKSPACE/scripts/build
+
+echo
+echo "> ./target/$1"
+
+$WORKSPACE/target/$1

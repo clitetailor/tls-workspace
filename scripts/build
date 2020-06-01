@@ -1,0 +1,22 @@
+#!/bin/bash
+
+WORKSPACE=$(cd `dirname $0` && cd .. && pwd)
+
+echo
+go version
+
+echo
+
+FILES=$(ls $WORKSPACE/bin/**/*)
+
+for FILE in ${FILES[@]}
+do
+    FILE=$(sed "s|$WORKSPACE/bin/||g" <<<"$FILE")
+    OUT=$(sed "s|\\.go\$||g" <<<"$WORKSPACE/target/`dirname $FILE`")
+
+    go build -o "$OUT" "$WORKSPACE/bin/$FILE"
+    du -h "$OUT"
+done
+
+echo
+echo "Done."

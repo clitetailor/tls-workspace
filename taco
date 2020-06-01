@@ -1,0 +1,31 @@
+#!/bin/bash
+
+WORKSPACE=$(cd `dirname $0` && pwd)
+
+USAGE="
+Usage
+  ./taco run <bin>
+
+Commands
+  help      Print help message
+  build     Build all binary targets
+  run       Build and run the selected binary target
+"
+
+case $1 in
+  help)
+      echo "$USAGE"
+    ;;
+  
+  build)
+      $WORKSPACE/scripts/build
+    ;;
+  
+  run)
+      $WORKSPACE/scripts/run ${@:2}
+    ;;
+  
+  *)
+      $WORKSPACE/scripts/run ${@:1}
+    ;;
+esac
