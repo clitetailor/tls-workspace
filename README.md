@@ -16,4 +16,4 @@ Start the client:
 
 ## License
 
-[MIT LICENSE](LICENSE)
+[MIT License](LICENSE)
