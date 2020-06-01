@@ -1,5 +1,11 @@
 # TLS Workspace
 
+## Usage
+
+```bash
+./taco --help
+```
+
 ## Run
 
 Start the server:

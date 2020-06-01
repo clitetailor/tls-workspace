@@ -3,6 +3,7 @@ package main
 import (
 	"crypto/tls"
 	"crypto/x509"
+	"fmt"
 	"io/ioutil"
 	"log"
 )
@@ -10,22 +11,22 @@ import (
 func main() {
 	log.SetFlags(log.Lshortfile)
 
-	pem, err := ioutil.ReadFile("./etc/server.pem")
+	cert, err := ioutil.ReadFile("./etc/ca.crt")
 	if err != nil {
-		log.Fatalf("failed to read server pem: %v", err)
+		log.Fatalf("failed to read ca cert: %v", err)
 	}
 
 	certPool := x509.NewCertPool()
-	certPool.AppendCertsFromPEM([]byte(pem))
+	certPool.AppendCertsFromPEM([]byte(cert))
 
 	conf := &tls.Config{
-		ServerName: "127.0.0.1",
+		ServerName: "localhost",
 		RootCAs:    certPool,
 	}
 
-	conn, err := tls.Dial("tcp", ":443", conf)
+	conn, err := tls.Dial("tcp", ":1227", conf)
 	if err != nil {
-		log.Fatalf("failed to dial :443: %v", err)
+		log.Fatalf("failed to dial :1227: %v", err)
 	}
 	defer conn.Close()
 
@@ -42,5 +43,5 @@ func main() {
 		return
 	}
 
-	println(string(buf[:n]))
+	fmt.Print(string(buf[:n]))
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"crypto/tls"
+	"fmt"
 	"log"
 	"net"
 )
@@ -17,7 +18,7 @@ func main() {
 	}
 
 	config := &tls.Config{Certificates: []tls.Certificate{cer}}
-	ln, err := tls.Listen("tcp", ":443", config)
+	ln, err := tls.Listen("tcp", ":1227", config)
 	if err != nil {
 		log.Println(err)
 		return
@@ -44,9 +45,9 @@ func handleConnection(conn net.Conn) {
 			return
 		}
 
-		println(msg)
+		fmt.Print(msg)
 
-		n, err := conn.Write([]byte("world\n"))
+		n, err := conn.Write([]byte("Hi!"))
 		if err != nil {
 			log.Println(n, err)
 			return
